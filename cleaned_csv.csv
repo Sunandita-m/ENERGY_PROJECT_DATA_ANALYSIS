@@ -1,0 +1,30 @@
+import pandas as pd
+import os
+
+# Path to your CSV
+CSV_PATH = "C:\\Users\\sunan\\OneDrive\\Documents\\new project\\data.csv"
+
+# Define column names
+columns = ["name", "age", "salary"]
+
+# Check if file exists
+if not os.path.exists(CSV_PATH) or os.path.getsize(CSV_PATH) == 0:
+    # Create an empty CSV with headers
+    print("CSV is empty or missing. Creating with headers...")
+    df = pd.DataFrame(columns=columns)
+    df.to_csv(CSV_PATH, index=False)
+else:
+    # File exists and has data, read it
+    df = pd.read_csv(CSV_PATH)
+
+print("Current DataFrame:")
+print(df)
+
+# Example: Adding a new row
+new_row = {"name": "Alice", "age": 30, "salary": 50000}
+df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+
+# Save the updated CSV
+df.to_csv(CSV_PATH, index=False)
+print("\nUpdated DataFrame:")
+print(df)
